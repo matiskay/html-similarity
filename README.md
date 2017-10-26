@@ -9,7 +9,6 @@ This package provides a set of functions to measure the similarity between web p
 pip install html-similarity
 ```
 
-
 ## Recomendations for joint similarity
 
 Using `k=0.3` give use better results. The style similarity can gives more information 
@@ -42,4 +41,10 @@ We use sequence comparison of the html tags to compute the structural similarity
 ## Development
 
 See `CONTRIBUTING.md` file
+ 
 
+## TODO:
+
+* [ ] Add information about the package in pypi
+* [ ] Add documentation
+* [ ] Add examples
