@@ -13,7 +13,13 @@ def get_classes(html):
 
 
 def jaccard_similarity(set1, set2):
-    pass
+    set1 = set(set1)
+    set2 = set(set2)
+    intersection = len(set1 & set2)
+    denominator = len(set1) + len(set2) - intersection
+    if denominator == 0:
+        return 0
+    return intersection / denominator
 
 
 def style_similarity(page1, page2):
@@ -30,8 +36,4 @@ def style_similarity(page1, page2):
     """
     classes_page1 = get_classes(page1)
     classes_page2 = get_classes(page2)
-    intersection = len(classes_page1 & classes_page2)
-    denominator = len(classes_page1) + len(classes_page2) - intersection
-    if denominator == 0:
-        return 0
-    return intersection / denominator
+    return jaccard_similarity(classes_page1, classes_page2)
