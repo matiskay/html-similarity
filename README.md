@@ -1,3 +1,5 @@
+# THIS IS UNDER DEVELOPEMENT
+
 # HTML Similarity
 [![Build Status](https://travis-ci.org/matiskay/html-similarity.svg?branch=master)](https://travis-ci.org/matiskay/html-similarity)
 
