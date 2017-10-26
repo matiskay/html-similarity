@@ -37,8 +37,3 @@ We use sequence comparison of the html tags to compute the structural similarity
 
 See `CONTRIBUTING.md` file
 
-## TODO
-
-* [ ] Add tests
-* [ ] Improve performance.
-
