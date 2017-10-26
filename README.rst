@@ -23,7 +23,7 @@ Structural Similarity
 We use sequence comparison fo the html tags to compute the structural similarity instead of
 tree edit distance because tree edit distance is slower than sequence comparison.
 
-The idea of sequence comparison was taken from [Page Compare](https://github.com/TeamHG-Memex/page-compare).
+The idea of sequence comparison was taken from `Page Compare <https://github.com/TeamHG-Memex/page-compare>`.
 
 
 Style Similarity
