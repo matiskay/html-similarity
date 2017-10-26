@@ -3,6 +3,12 @@
 
 This package provides a set of functions to measure the similarity between web pages.
 
+## Instalation
+
+```
+pip install html-similarity
+```
+
 
 ## Recomendations for joint similarity
 
