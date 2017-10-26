@@ -1,10 +1,9 @@
-from os.path import dirname, join
 from setuptools import setup, find_packages
 
 
 setup(
     name='html-similarity',
-    version='0.1',
+    version='0.2',
     url='https://github.com/matiskay/html-similarity',
     description='A set of similarity metricts to compare html files.',
     include_package_data=True,
