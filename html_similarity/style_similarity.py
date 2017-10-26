@@ -12,6 +12,10 @@ def get_classes(html):
     return result
 
 
+def jaccard_similarity(set1, set2):
+    pass
+
+
 def style_similarity(page1, page2):
     """
 
