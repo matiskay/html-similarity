@@ -1,7 +1,7 @@
-from pytest import approx
-
 from html_similarity import style_similarity
 from html_similarity.style_similarity import jaccard_similarity
+
+from .utils import almost_equal
 
 
 html1 = ''''
@@ -37,4 +37,6 @@ def test_style_similarity():
 
 def test_jaccard_similarity():
     assert 1 == jaccard_similarity(['a', 'b', 'c'], ['a', 'b', 'c'])
-    assert approx(0.666, jaccard_similarity(['a', 'b'], ['a', 'b', 'c']))
+    assert almost_equal(0.6666, jaccard_similarity(['a', 'b'], ['a', 'b', 'c']))
+    assert 0 == jaccard_similarity(['d', 'e'], ['a', 'b', 'c'])
+    assert almost_equal(jaccard_similarity(list(range(1, 1000000)), list(range(1000000 - 10, 2 * 1000000))), 0)

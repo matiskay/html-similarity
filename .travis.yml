@@ -4,5 +4,5 @@ python:
 install:
   - pip install -r requirements-dev.txt
 script:
-  - pytest tests/
+  - pytest -v tests/
   - flake8 html_similarity

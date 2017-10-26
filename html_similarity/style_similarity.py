@@ -17,9 +17,7 @@ def jaccard_similarity(set1, set2):
     set2 = set(set2)
     intersection = len(set1 & set2)
     denominator = len(set1) + len(set2) - intersection
-    if denominator == 0:
-        return 0
-    return intersection / denominator
+    return intersection / max(denominator, 0.000001)
 
 
 def style_similarity(page1, page2):
