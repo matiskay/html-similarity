@@ -1,6 +1,6 @@
-# HTML Similarity Tools
+# HTML Similarity
 
-This package provides a set of functions to measure the similarity web pages.
+This package provides a set of functions to measure the similarity between web pages.
 
 
 ## Recomendations for joint similarity
