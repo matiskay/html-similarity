@@ -19,6 +19,13 @@ nosetests -v tests/
 ```
 
 
+## Run Flake8
+
+```
+flake8 html_similarity
+```
+
+
 ## References
 
 * [Twine](https://pypi.python.org/pypi/twine)
