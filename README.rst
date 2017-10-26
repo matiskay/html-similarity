@@ -1,7 +1,9 @@
 ===============
 HTML Similarity
 ===============
-[![Build Status](https://travis-ci.org/matiskay/html-similarity.svg?branch=master)](https://travis-ci.org/matiskay/html-similarity)
+
+.. image:: https://travis-ci.org/matiskay/html-similarity.svg?branch=master
+    :target: https://travis-ci.org/matiskay/html-similarity
 
 This package provides a set of functions to measure the similarity between web pages.
 
