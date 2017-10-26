@@ -34,13 +34,10 @@ We use sequence comparison of the html tags to compute the structural similarity
 
 ## Development
 
-```
-pip install -r requirements.txt
-```
+See `CONTRIBUTING.md` file
 
 ## TODO
 
 * [ ] Add tests
 * [ ] Improve performance.
-* [ ] Upload the package to pypi. See http://peterdowns.com/posts/first-time-with-pypi.html
 
