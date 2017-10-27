@@ -6,3 +6,4 @@ install:
 script:
   - pytest -v tests/
   - flake8 html_similarity
+  - python setup.py check --restructuredtext

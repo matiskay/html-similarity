@@ -64,6 +64,4 @@ See `CONTRIBUTING.md` file
 TODO
 ====
 
-* [ ] Add information about the package in pypi
-* [ ] Add documentation
 * [ ] Add examples
