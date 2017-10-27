@@ -9,6 +9,7 @@ setup(
     long_description=open('README.rst').read(),
     include_package_data=True,
     author='Edgar Marca',
+    author_email='matiskay@gmail.com',
     maintainer='Edgar Marca',
     maintainer_email='matiskay@gmail.com',
     license='BSD',
