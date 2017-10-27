@@ -59,9 +59,35 @@ Development
 ===========
 
 See `CONTRIBUTING.md` file
- 
 
-TODO
-====
 
-* [ ] Add examples
+Examples
+========
+
+Here is a example::
+
+    In [1]: html_1 = '''
+    <h1 class="title">First Document</h1>
+    <ul class="menu">
+        <li class="active">Documents</li>
+        <li>Extra</li>
+    </ul>
+    '''
+
+    In [2]: html_2 = '''
+    <h1 class="title">Second document Document</h1>
+    <ul class="menu">
+        <li class="active">Extra Documents</li>
+    </ul>
+    '''
+
+    In [3] from html_similarity import style_similarity, structural_similarity, similarity
+
+    In [4]: style_similarity(html_1, html_2)
+    Out[4]: 1.0
+
+    In [7]: structural_similarity(html_1, html_2)
+    Out[7]: 0.9090909090909091
+
+    In [8]: similarity(html_1, html_2)
+    Out[8]: 0.9545454545454546
