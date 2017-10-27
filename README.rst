@@ -49,18 +49,6 @@ Recommendations for joint similarity
 
 Using `k=0.3` give use better results. The style similarity gives more information about the similarity rather than the structural similarity.
 
-
-References
-==========
-
-.. [1] `T. Gowda and C. A. Mattmann, Clustering Web Pages Based on Structure and Style Similarity, 2016 IEEE 17th International Conference on Information Reuse and Integration (IRI), Pittsburgh, PA, 2016, pp. 175-180. <http://ieeexplore.ieee.org/document/7785739/>`_
-
-Development
-===========
-
-See `CONTRIBUTING.md` file
-
-
 Examples
 ========
 
@@ -91,3 +79,13 @@ Here is a example::
 
     In [8]: similarity(html_1, html_2)
     Out[8]: 0.9545454545454546
+
+References
+==========
+
+.. [1] `T. Gowda and C. A. Mattmann, Clustering Web Pages Based on Structure and Style Similarity, 2016 IEEE 17th International Conference on Information Reuse and Integration (IRI), Pittsburgh, PA, 2016, pp. 175-180. <http://ieeexplore.ieee.org/document/7785739/>`_
+
+Development
+===========
+
+See `CONTRIBUTING.md` file
