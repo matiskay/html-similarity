@@ -47,14 +47,13 @@ The value is in the interval of 0 and 1.
 Recommendations for joint similarity
 ------------------------------------
 
-Using `k=0.3` give use better results. The style similarity can gives more information
-about the similarity rather than the style.
+Using `k=0.3` give use better results. The style similarity gives more information about the similarity rather than the style.
 
 
 References
 ==========
 
-.. [1] `T. Gowda and C. A. Mattmann, Clustering Web Pages Based on Structure and Style Similarity (Application Paper), 2016 IEEE 17th International Conference on Information Reuse and Integration (IRI), Pittsburgh, PA, 2016, pp. 175-180. <http://ieeexplore.ieee.org/document/7785739/>`_
+.. [1] `T. Gowda and C. A. Mattmann, Clustering Web Pages Based on Structure and Style Similarity, 2016 IEEE 17th International Conference on Information Reuse and Integration (IRI), Pittsburgh, PA, 2016, pp. 175-180. <http://ieeexplore.ieee.org/document/7785739/>`_
 
 Development
 ===========
