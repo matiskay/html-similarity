@@ -15,6 +15,10 @@ def jaccard_similarity(set1, set2):
     set1 = set(set1)
     set2 = set(set2)
     intersection = len(set1 & set2)
+
+    if len(set1) == 0 and len(set2) == 0:
+        return 1.0
+
     denominator = len(set1) + len(set2) - intersection
     return intersection / max(denominator, 0.000001)
 

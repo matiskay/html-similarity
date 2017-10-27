@@ -35,6 +35,10 @@ def test_style_similarity():
     assert 1 == style_similarity(html1, html2)
 
 
+def test_no_styles_similarity():
+    assert 1 == style_similarity('<h1>No class here</h1>', '<h1>Look no css class here</h1>')
+
+
 def test_jaccard_similarity():
     assert 1 == jaccard_similarity(['a', 'b', 'c'], ['a', 'b', 'c'])
     assert almost_equal(0.6666, jaccard_similarity(['a', 'b'], ['a', 'b', 'c']))
