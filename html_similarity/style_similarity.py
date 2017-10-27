@@ -25,6 +25,7 @@ def jaccard_similarity(set1, set2):
 
 def style_similarity(page1, page2):
     """
+    Computes CSS style Similarity between two DOM trees
 
     A = classes(Document_1)
     B = classes(Document_2)

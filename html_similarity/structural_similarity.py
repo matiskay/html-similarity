@@ -5,6 +5,12 @@ import lxml.html
 
 
 def get_tags(doc):
+    '''
+    Get tags from a DOM tree
+
+    :param doc: lxml parsed object
+    :return:
+    '''
     tags = list()
 
     for el in doc.getroot().iter():
@@ -19,6 +25,12 @@ def get_tags(doc):
 
 
 def structural_similarity(document_1, document_2):
+    """
+    Computes the structural similarity between two DOM Trees
+    :param document_1: html string
+    :param document_2: html string
+    :return: int
+    """
     try:
         document_1 = lxml.html.parse(StringIO(document_1))
         document_2 = lxml.html.parse(StringIO(document_2))
