@@ -47,7 +47,7 @@ The value is in the interval of 0 and 1.
 Recommendations for joint similarity
 ------------------------------------
 
-Using `k=0.3` give use better results. The style similarity gives more information about the similarity rather than the style.
+Using `k=0.3` give use better results. The style similarity gives more information about the similarity rather than the structural similarity.
 
 
 References
