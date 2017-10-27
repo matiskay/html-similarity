@@ -5,6 +5,9 @@ HTML Similarity
 .. image:: https://travis-ci.org/matiskay/html-similarity.svg?branch=master
     :target: https://travis-ci.org/matiskay/html-similarity
 
+.. image:: https://codebeat.co/badges/304915eb-48a3-46a8-9ce9-2790c82dc2b8
+    :target: https://codebeat.co/projects/github-com-matiskay-html-similarity-master
+
 This package provides a set of functions to measure the similarity between web pages.
 
 Install
