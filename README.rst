@@ -20,17 +20,15 @@ How it works?
 Structural Similarity
 ---------------------
 
-We use sequence comparison fo the html tags to compute the structural similarity instead of
-tree edit distance because tree edit distance is slower than sequence comparison.
+Uses sequence comparison of the html tags to compute the similarity.
 
-The idea of sequence comparison was taken from `Page Compare <https://github.com/TeamHG-Memex/page-compare>`_.
+We not implement the similarity based on tree edit distance because it is slower than sequence comparison.
 
 
 Style Similarity
 ----------------
 
 Extracts css classes of each html document and calculates the jaccard similarity of the sets of classes.
-The idea was taken from [1]_
 
 
 Joint Similarity (Structural Similarity and Style Similarity)
@@ -40,9 +38,8 @@ The joint similarity metric is calculated as::
 
     k * structural_similarity(document_1, document_2) + (1 - k) * style_similarity(document_1, document_2)
 
-This was taken from [1]_
 
-The value is in the interval of 0 and 1.
+All the similarity metrics takes values between 0 and 1.
 
 Recommendations for joint similarity
 ------------------------------------
@@ -83,7 +80,8 @@ Here is a example::
 References
 ==========
 
-.. [1] `T. Gowda and C. A. Mattmann, Clustering Web Pages Based on Structure and Style Similarity, 2016 IEEE 17th International Conference on Information Reuse and Integration (IRI), Pittsburgh, PA, 2016, pp. 175-180. <http://ieeexplore.ieee.org/document/7785739/>`_
+The idea of sequence comparison was taken from `Page Compare <https://github.com/TeamHG-Memex/page-compare>`_
+and the other ideas were taken from `T. Gowda and C. A. Mattmann, Clustering Web Pages Based on Structure and Style Similarity, 2016 IEEE 17th International Conference on Information Reuse and Integration (IRI), Pittsburgh, PA, 2016, pp. 175-180. <http://ieeexplore.ieee.org/document/7785739/>`_
 
 Development
 ===========

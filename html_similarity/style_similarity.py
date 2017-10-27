@@ -1,7 +1,6 @@
 from parsel import Selector
 
 
-# TODO: Improve performance: https://stackoverflow.com/questions/18348777/python-get-class-from-lxml-xpath
 def get_classes(html):
     doc = Selector(text=html)
     classes = set(doc.xpath('//*[@class]/@class').extract())
