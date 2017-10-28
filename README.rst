@@ -83,10 +83,6 @@ Here is a example::
 References
 ==========
 
-The idea of sequence comparison was taken from `Page Compare <https://github.com/TeamHG-Memex/page-compare>`_
-and the other ideas were taken from `T. Gowda and C. A. Mattmann, Clustering Web Pages Based on Structure and Style Similarity, 2016 IEEE 17th International Conference on Information Reuse and Integration (IRI), Pittsburgh, PA, 2016, pp. 175-180. <http://ieeexplore.ieee.org/document/7785739/>`_
-
-Development
-===========
-
-See `CONTRIBUTING.md` file
+- The idea of sequence comparision was taken from `Page Compare <https://github.com/TeamHG-Memex/page-compare>`_.
+- The other ideas were taken from `T. Gowda and C. A. Mattmann, Clustering Web Pages Based on Structure and Style Similarity, 2016 IEEE 17th International Conference on Information Reuse and Integration (IRI), Pittsburgh, PA, 2016, pp. 175-180. <http://ieeexplore.ieee.org/document/7785739/>`_
+- Use case `Clustering web pages based on structure and style similarity <https://www.slideshare.net/thammegowda/ieee-iri-16-clustering-web-pages-based-on-structure-and-style-similarity?qid=7deea5f8-157d-4e57-a413-16ec7c6a22d9&v=&b=&from_search=1>`_
