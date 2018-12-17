@@ -22,6 +22,6 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     install_requires=[
-        'parsel==1.4.0',
+        'parsel==1.5.1',
     ],
 )
