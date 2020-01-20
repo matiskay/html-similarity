@@ -1,4 +1,4 @@
 -r requirements.txt
 twine==1.13.0
-pytest==4.6.2
+pytest==5.3.3
 flake8==3.7.7
