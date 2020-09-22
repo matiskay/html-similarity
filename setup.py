@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='html-similarity',
-    version='0.3.2',
+    version='0.3.3',
     url='https://github.com/matiskay/html-similarity',
     description='A set of similarity metricts to compare html files.',
     long_description=open('README.rst').read(),
