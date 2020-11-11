@@ -18,6 +18,8 @@ def get_tags(doc):
             tags.append(el.tag)
         elif isinstance(el, lxml.html.HtmlComment):
             tags.append('comment')
+        elif isinstance(el, lxml.html.HtmlProcessingInstruction):
+            tags.append(el.tag)
         else:
             raise ValueError('Don\'t know what to do with element: {}'.format(el))
 
