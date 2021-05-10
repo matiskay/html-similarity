@@ -1,4 +1,4 @@
 -r requirements.txt
 twine==3.2.0
 pytest==6.0.2
-flake8==3.8.3
+flake8==3.9.2
