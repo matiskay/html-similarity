@@ -1,5 +1,5 @@
 import difflib
-from io import StringIO
+from io import BytesIO, StringIO
 
 import lxml.html
 
@@ -32,8 +32,8 @@ def structural_similarity(document_1, document_2):
     :return: int
     """
     try:
-        document_1 = lxml.html.parse(StringIO(document_1))
-        document_2 = lxml.html.parse(StringIO(document_2))
+        document_1 = lxml.html.parse(StringIO(document_1) if isinstance(document_1, str) else BytesIO(document_1))
+        document_2 = lxml.html.parse(StringIO(document_2) if isinstance(document_2, str) else BytesIO(document_2))
     except Exception as e:
         print(e)
         return 0
