@@ -1,4 +1,8 @@
+import lxml.html
+from lxml import etree
+
 from html_similarity import structural_similarity, style_similarity
+from html_similarity.structural_similarity import get_tags
 from html_similarity.style_similarity import jaccard_similarity
 
 from .utils import almost_equal
@@ -79,3 +83,12 @@ xhtml2 = '''
 
 def test_structural_similarity_from_bytes():
     assert 1 == structural_similarity(xhtml1.encode('utf-8'), xhtml2.encode('utf-8'))
+
+
+def test_get_tags_with_processing_instruction():
+    root = lxml.html.fromstring('<html><body><h1 class="title">hi</h1></body></html>')
+    root.find('body').insert(0, lxml.html.HtmlProcessingInstruction('php', 'echo 1;'))
+
+    tags = get_tags(etree.ElementTree(root))
+
+    assert tags == ['html', 'body', 'processing-instruction', 'h1']
