@@ -19,6 +19,8 @@ def get_tags(doc: _ElementTree) -> list[str]:
             tags.append(el.tag)
         elif isinstance(el, lxml.html.HtmlComment):
             tags.append('comment')
+        elif isinstance(el, lxml.html.HtmlProcessingInstruction):
+            tags.append('processing-instruction')
         else:
             raise ValueError('Don\'t know what to do with element: {}'.format(el))
 
