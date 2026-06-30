@@ -1,5 +1,5 @@
 import difflib
-from io import StringIO
+from io import BytesIO, StringIO
 
 import lxml.html
 from lxml.etree import _ElementTree
@@ -25,16 +25,16 @@ def get_tags(doc: _ElementTree) -> list[str]:
     return tags
 
 
-def structural_similarity(document_1: str, document_2: str) -> float:
+def structural_similarity(document_1: str | bytes, document_2: str | bytes) -> float:
     """
     Computes the structural similarity between two DOM Trees
-    :param document_1: html string
-    :param document_2: html string
+    :param document_1: html string or bytes
+    :param document_2: html string or bytes
     :return: int
     """
     try:
-        tree_1 = lxml.html.parse(StringIO(document_1))
-        tree_2 = lxml.html.parse(StringIO(document_2))
+        tree_1 = lxml.html.parse(StringIO(document_1) if isinstance(document_1, str) else BytesIO(document_1))
+        tree_2 = lxml.html.parse(StringIO(document_2) if isinstance(document_2, str) else BytesIO(document_2))
     except Exception as e:
         print(e)
         return 0
