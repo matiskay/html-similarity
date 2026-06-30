@@ -1,6 +1,6 @@
 [project]
 name = "html-similarity"
-version = "0.4.0"
+version = "0.4.1"
 description = "A set of similarity metricts to compare html files."
 readme = "README.rst"
 license = "BSD-3-Clause"
