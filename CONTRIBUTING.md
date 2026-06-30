@@ -1,33 +1,30 @@
 ## Setup
 
-```
-pip install -r requirements-dev.txt
-```
-
-## Create a new version in Pipy
+This project uses [uv](https://docs.astral.sh/uv/) to manage the Python
+version and dependencies. Run the bootstrap script to create a `.venv` and
+install the package along with its dev dependencies (pytest, flake8):
 
 ```
-python setup.py sdist bdist_wheel
-twine upload dist/*
+./bootstrap.sh
+```
+
+## Create a new version in PyPI
+
+```
+uv build
+uv publish
 ```
 
 
 ## Run tests
 
 ```
-nosetests -v tests/
+uv run pytest -v tests/
 ```
 
 
 ## Run Flake8
 
 ```
-flake8 html_similarity
+uv run flake8 html_similarity
 ```
-
-
-## References
-
-* [Twine](https://pypi.python.org/pypi/twine)
-* [How to publish your own Python Package on PyPi](
-https://medium.freecodecamp.org/how-to-publish-a-pyton-package-on-pypi-a89e9522ce24)

@@ -1,0 +1,38 @@
+[project]
+name = "html-similarity"
+version = "0.4.0"
+description = "A set of similarity metricts to compare html files."
+readme = "README.rst"
+license = "BSD-3-Clause"
+authors = [
+    { name = "Edgar Marca", email = "matiskay@gmail.com" },
+]
+maintainers = [
+    { name = "Edgar Marca", email = "matiskay@gmail.com" },
+]
+requires-python = ">=3.14"
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "parsel>=1.10",
+]
+
+[project.urls]
+Homepage = "https://github.com/matiskay/html-similarity"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "flake8>=7",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+exclude = ["tests", "tests.*"]
