@@ -4,8 +4,9 @@ import lxml.html
 import pytest
 from lxml import etree
 
-from html_similarity import HtmlParsingError, structural_similarity, style_similarity
-from html_similarity.structural_similarity import get_tags
+from html_similarity import HtmlParsingError, StructuralAlgorithm, structural_similarity, style_similarity
+from html_similarity.algorithms.common import get_tags
+from html_similarity.algorithms.pq_gram import get_pq_grams
 from html_similarity.style_similarity import jaccard_similarity
 
 from .utils import almost_equal
@@ -123,3 +124,35 @@ def test_structural_similarity_raises_html_parsing_error_on_parser_error():
     with patch('lxml.html.parse', side_effect=etree.ParserError('boom')):
         with pytest.raises(HtmlParsingError):
             structural_similarity('<html></html>', '<html></html>')
+
+
+@pytest.mark.parametrize('algorithm', list(StructuralAlgorithm))
+def test_structural_similarity_identical_documents_score_one(algorithm):
+    html = '<html><body><div><span>x</span></div><p>y</p></body></html>'
+
+    assert structural_similarity(html, html, algorithm=algorithm) == 1.0
+
+
+def test_structural_similarity_rejects_unknown_algorithm():
+    with pytest.raises(ValueError):
+        structural_similarity('<html></html>', '<html></html>', algorithm='bogus')
+
+
+def test_structural_similarity_pq_gram_is_sensitive_to_nesting():
+    # Both documents share the exact same DFS tag sequence (html, body, div,
+    # span, p), so flat sequence comparisons can't tell them apart. pq_gram
+    # encodes ancestor context, so it should detect that `p` moved from being
+    # a sibling of `div` to being its child.
+    doc1 = '<html><body><div><span>x</span></div><p>y</p></body></html>'
+    doc2 = '<html><body><div><span>x</span><p>y</p></div></body></html>'
+
+    assert structural_similarity(doc1, doc2, algorithm=StructuralAlgorithm.INDEL) == 1.0
+    assert structural_similarity(doc1, doc2, algorithm=StructuralAlgorithm.PQ_GRAM) < 1.0
+
+
+def test_get_pq_grams_leaf_gets_all_star_gram():
+    root = lxml.html.fromstring('<html></html>')
+
+    grams = get_pq_grams(etree.ElementTree(root), p=2, q=3)
+
+    assert grams[('html', '*', '*', '*', '*')] == 1
