@@ -92,3 +92,19 @@ def test_get_tags_with_processing_instruction():
     tags = get_tags(etree.ElementTree(root))
 
     assert tags == ['html', 'body', 'processing-instruction', 'h1']
+
+
+def test_structural_similarity_ignores_autojunk_on_large_repetitive_documents():
+    # difflib.SequenceMatcher's default autojunk=True treats elements occurring
+    # in >1% of positions as "popular" and excludes them from matching once a
+    # sequence has >=200 items. Long HTML documents are dominated by a handful
+    # of repeated tags (div, li, span, ...), which is exactly this case, so the
+    # default would badly understate similarity between near-identical pages.
+    def make_html(n, first_tag):
+        body = f'<{first_tag}>x</{first_tag}>' + '<div>x</div>' * (n - 1)
+        return f'<html><body>{body}</body></html>'
+
+    doc1 = make_html(250, 'div')
+    doc2 = make_html(250, 'span')  # differs in exactly 1 of 251 tags
+
+    assert almost_equal(structural_similarity(doc1, doc2), 250 / 251, threshold=0.01)
