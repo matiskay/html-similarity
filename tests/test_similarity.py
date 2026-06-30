@@ -1,7 +1,10 @@
+from unittest.mock import patch
+
 import lxml.html
+import pytest
 from lxml import etree
 
-from html_similarity import structural_similarity, style_similarity
+from html_similarity import HtmlParsingError, structural_similarity, style_similarity
 from html_similarity.structural_similarity import get_tags
 from html_similarity.style_similarity import jaccard_similarity
 
@@ -108,3 +111,15 @@ def test_structural_similarity_ignores_autojunk_on_large_repetitive_documents():
     doc2 = make_html(250, 'span')  # differs in exactly 1 of 251 tags
 
     assert almost_equal(structural_similarity(doc1, doc2), 250 / 251, threshold=0.01)
+
+
+def test_structural_similarity_raises_html_parsing_error_on_xml_syntax_error():
+    with patch('lxml.html.parse', side_effect=etree.XMLSyntaxError('boom', 0, 0, 0)):
+        with pytest.raises(HtmlParsingError):
+            structural_similarity('<html></html>', '<html></html>')
+
+
+def test_structural_similarity_raises_html_parsing_error_on_parser_error():
+    with patch('lxml.html.parse', side_effect=etree.ParserError('boom')):
+        with pytest.raises(HtmlParsingError):
+            structural_similarity('<html></html>', '<html></html>')
