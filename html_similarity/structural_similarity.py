@@ -43,7 +43,7 @@ def structural_similarity(document_1: str | bytes, document_2: str | bytes) -> f
 
     tags1 = get_tags(tree_1)
     tags2 = get_tags(tree_2)
-    diff = difflib.SequenceMatcher()
+    diff = difflib.SequenceMatcher(autojunk=False)
     diff.set_seq1(tags1)
     diff.set_seq2(tags2)
 
