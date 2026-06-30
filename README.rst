@@ -17,9 +17,24 @@ How it works?
 Structural Similarity
 ---------------------
 
-Uses sequence comparison of the html tags to compute the similarity.
+Uses sequence comparison of the html tags to compute the similarity, by default.
 
 We not implement the similarity based on tree edit distance because it is slower than sequence comparison.
+
+``structural_similarity`` accepts an ``algorithm`` keyword to pick the comparison strategy:
+
+- ``indel`` (default): flat tag-sequence comparison using rapidfuzz's bit-parallel Indel/LCS
+  implementation. Fastest option, but blind to nesting (e.g. moving an element to a different
+  parent without changing the overall tag order won't affect the score).
+- ``pq_gram``: tree-structure aware. Compares `pq-gram <https://www.lsi.upc.edu/~nin/teaching/sed/lectures/pqgram-tods.pdf>`_
+  profiles, which approximate Tree Edit Distance in roughly linear time while still capturing
+  parent/child relationships. Slower than ``indel`` but catches structural changes that a flat
+  sequence misses.
+- ``difflib``: legacy flat tag-sequence comparison (the original implementation), kept mainly for
+  benchmarking against ``indel``.
+
+See ``notebooks/structural_similarity_benchmark.ipynb`` for a notebook that compares the speed and
+the structural sensitivity of all three.
 
 
 Style Similarity

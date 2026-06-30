@@ -1,52 +1,39 @@
-import difflib
 from io import BytesIO, StringIO
 
 import lxml.html
-from lxml.etree import ParserError, XMLSyntaxError, _ElementTree
+from lxml.etree import ParserError, XMLSyntaxError
 
+from html_similarity.algorithms import ALGORITHMS, DEFAULT_ALGORITHM, StructuralAlgorithm
 from html_similarity.exceptions import HtmlParsingError
 
-
-def get_tags(doc: _ElementTree) -> list[str]:
-    '''
-    Get tags from a DOM tree
-
-    :param doc: lxml parsed object
-    :return:
-    '''
-    tags: list[str] = []
-
-    for el in doc.getroot().iter():
-        if isinstance(el, lxml.html.HtmlElement):
-            tags.append(el.tag)
-        elif isinstance(el, lxml.html.HtmlComment):
-            tags.append('comment')
-        elif isinstance(el, lxml.html.HtmlProcessingInstruction):
-            tags.append('processing-instruction')
-        else:
-            raise ValueError('Don\'t know what to do with element: {}'.format(el))
-
-    return tags
+__all__ = ['structural_similarity', 'StructuralAlgorithm']
 
 
-def structural_similarity(document_1: str | bytes, document_2: str | bytes) -> float:
+def structural_similarity(
+    document_1: str | bytes,
+    document_2: str | bytes,
+    algorithm: StructuralAlgorithm | str = DEFAULT_ALGORITHM,
+) -> float:
     """
     Computes the structural similarity between two DOM Trees
+
     :param document_1: html string or bytes
     :param document_2: html string or bytes
+    :param algorithm: comparison algorithm to use, see html_similarity.algorithms.StructuralAlgorithm:
+        - ``indel`` (default): fastest, flat tag-sequence comparison via rapidfuzz's
+          bit-parallel Indel/LCS implementation.
+        - ``pq_gram``: tree-structure aware, approximates Tree Edit Distance by
+          comparing pq-gram profiles instead of a flat sequence.
+        - ``difflib``: legacy flat tag-sequence comparison, kept for benchmarking.
     :return: float
     :raises HtmlParsingError: if either document cannot be parsed
     """
+    algorithm = StructuralAlgorithm(algorithm)
+
     try:
         tree_1 = lxml.html.parse(StringIO(document_1) if isinstance(document_1, str) else BytesIO(document_1))
         tree_2 = lxml.html.parse(StringIO(document_2) if isinstance(document_2, str) else BytesIO(document_2))
     except (XMLSyntaxError, ParserError) as e:
         raise HtmlParsingError(f'Failed to parse HTML document: {e}') from e
 
-    tags1 = get_tags(tree_1)
-    tags2 = get_tags(tree_2)
-    diff = difflib.SequenceMatcher(autojunk=False)
-    diff.set_seq1(tags1)
-    diff.set_seq2(tags2)
-
-    return diff.ratio()
+    return ALGORITHMS[algorithm](tree_1, tree_2)
