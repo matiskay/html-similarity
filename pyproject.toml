@@ -18,6 +18,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
+    "lxml>=5.0",
     "parsel>=1.10",
 ]
 
