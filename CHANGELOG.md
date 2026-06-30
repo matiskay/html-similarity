@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.4.1] - 2026-06-30
+
+### Added
+- `structural_similarity` now accepts an `algorithm` parameter (`StructuralAlgorithm`: `indel`, `pq_gram`, `difflib`) to choose the comparison strategy:
+  - `indel` (new default): tag-sequence comparison via rapidfuzz's Indel/LCS implementation, replacing `difflib` as the default for a significant speedup on large, repetitive documents.
+  - `pq_gram`: a new tree-structure-aware comparison (Augsten, Böhlen & Gamper, 2005) that detects nesting changes a flat tag sequence can't see (e.g. an element moving from being a sibling to being a child).
+  - `difflib`: the previous default, kept available for comparison.
+- `notebooks/structural_similarity_benchmark.ipynb`, a benchmark notebook comparing the speed of all three algorithms across realistic document sizes and diff patterns (not shipped with the package).
+
+### Changed
+- Each structural-similarity algorithm now lives in its own module under `html_similarity/algorithms/`, selected via a strategy registry instead of being hardcoded.
+
+### Fixed
+- `pyproject.toml` package discovery switched from an exclude-list to an include-allowlist (`include = ["html_similarity", "html_similarity.*"]`), so only the `html_similarity` package ships in the built wheel regardless of what other top-level folders exist in the repo.
+
 ## [0.4.0] - 2026-06-30
 
 ### Added
@@ -20,4 +35,5 @@ All notable changes to this project are documented in this file.
 - CI migrated from Travis CI to GitHub Actions ([#109](https://github.com/matiskay/html-similarity/pull/109)).
 - Added Dependabot configuration for `uv` and GitHub Actions ([#112](https://github.com/matiskay/html-similarity/pull/112)).
 
+[0.4.1]: https://github.com/matiskay/html-similarity/releases/tag/v0.4.1
 [0.4.0]: https://github.com/matiskay/html-similarity/releases/tag/v0.4.0
