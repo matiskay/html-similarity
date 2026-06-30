@@ -1,17 +1,19 @@
+from collections.abc import Iterable
+
 from parsel import Selector
 
 
-def get_classes(html):
+def get_classes(html: str) -> set[str]:
     doc = Selector(text=html)
     classes = set(doc.xpath('//*[@class]/@class').extract())
-    result = set()
+    result: set[str] = set()
     for cls in classes:
         for _cls in cls.split():
             result.add(_cls)
     return result
 
 
-def jaccard_similarity(set1, set2):
+def jaccard_similarity(set1: Iterable[str], set2: Iterable[str]) -> float:
     set1 = set(set1)
     set2 = set(set2)
     intersection = len(set1 & set2)
@@ -23,7 +25,7 @@ def jaccard_similarity(set1, set2):
     return intersection / max(denominator, 0.000001)
 
 
-def style_similarity(page1, page2):
+def style_similarity(page1: str, page2: str) -> float:
     """
     Computes CSS style Similarity between two DOM trees
 

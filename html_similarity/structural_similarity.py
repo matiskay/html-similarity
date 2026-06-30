@@ -2,16 +2,17 @@ import difflib
 from io import StringIO
 
 import lxml.html
+from lxml.etree import _ElementTree
 
 
-def get_tags(doc):
+def get_tags(doc: _ElementTree) -> list[str]:
     '''
     Get tags from a DOM tree
 
     :param doc: lxml parsed object
     :return:
     '''
-    tags = list()
+    tags: list[str] = []
 
     for el in doc.getroot().iter():
         if isinstance(el, lxml.html.HtmlElement):
@@ -24,7 +25,7 @@ def get_tags(doc):
     return tags
 
 
-def structural_similarity(document_1, document_2):
+def structural_similarity(document_1: str, document_2: str) -> float:
     """
     Computes the structural similarity between two DOM Trees
     :param document_1: html string
@@ -32,14 +33,14 @@ def structural_similarity(document_1, document_2):
     :return: int
     """
     try:
-        document_1 = lxml.html.parse(StringIO(document_1))
-        document_2 = lxml.html.parse(StringIO(document_2))
+        tree_1 = lxml.html.parse(StringIO(document_1))
+        tree_2 = lxml.html.parse(StringIO(document_2))
     except Exception as e:
         print(e)
         return 0
 
-    tags1 = get_tags(document_1)
-    tags2 = get_tags(document_2)
+    tags1 = get_tags(tree_1)
+    tags2 = get_tags(tree_2)
     diff = difflib.SequenceMatcher()
     diff.set_seq1(tags1)
     diff.set_seq2(tags2)
