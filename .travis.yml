@@ -1,9 +1,10 @@
 language: python
 python:
-  - "3.6"
+  - "3.14"
 install:
-  - pip install -r requirements-dev.txt
+  - pip install uv
+  - uv sync --group dev
 script:
-  - pytest -v tests/
-  - flake8 html_similarity
-  - python setup.py check --restructuredtext
+  - uv run pytest -v tests/
+  - uv run flake8 html_similarity
+  - uv build
