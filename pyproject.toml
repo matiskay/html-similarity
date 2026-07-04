@@ -19,7 +19,6 @@ classifiers = [
 ]
 dependencies = [
     "lxml>=5.0",
-    "parsel>=1.10",
     "rapidfuzz>=3.14.5",
 ]
 
@@ -30,6 +29,7 @@ Homepage = "https://github.com/matiskay/html-similarity"
 dev = [
     "pytest>=8",
     "flake8>=7",
+    "pytest-benchmark>=5.2.3",
 ]
 notebooks = [
     "ipykernel>=7.3.0",

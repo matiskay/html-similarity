@@ -1,10 +1,5 @@
-from io import BytesIO, StringIO
-
-import lxml.html
-from lxml.etree import ParserError, XMLSyntaxError
-
 from html_similarity.algorithms import ALGORITHMS, DEFAULT_ALGORITHM, StructuralAlgorithm
-from html_similarity.exceptions import HtmlParsingError
+from html_similarity.parsing import parse_html
 
 __all__ = ['structural_similarity', 'StructuralAlgorithm']
 
@@ -30,10 +25,7 @@ def structural_similarity(
     """
     algorithm = StructuralAlgorithm(algorithm)
 
-    try:
-        tree_1 = lxml.html.parse(StringIO(document_1) if isinstance(document_1, str) else BytesIO(document_1))
-        tree_2 = lxml.html.parse(StringIO(document_2) if isinstance(document_2, str) else BytesIO(document_2))
-    except (XMLSyntaxError, ParserError) as e:
-        raise HtmlParsingError(f'Failed to parse HTML document: {e}') from e
+    tree_1 = parse_html(document_1)
+    tree_2 = parse_html(document_2)
 
     return ALGORITHMS[algorithm](tree_1, tree_2)

@@ -4,10 +4,11 @@ import lxml.html
 import pytest
 from lxml import etree
 
-from html_similarity import HtmlParsingError, StructuralAlgorithm, structural_similarity, style_similarity
+from html_similarity import HtmlParsingError, StructuralAlgorithm, similarity, structural_similarity, style_similarity
 from html_similarity.algorithms.common import get_tags
 from html_similarity.algorithms.pq_gram import get_pq_grams
-from html_similarity.style_similarity import jaccard_similarity
+from html_similarity.parsing import parse_html
+from html_similarity.style_similarity import get_classes, jaccard_similarity
 
 from .utils import almost_equal
 
@@ -45,6 +46,34 @@ def test_style_similarity():
 
 def test_no_styles_similarity():
     assert 1 == style_similarity('<h1>No class here</h1>', '<h1>Look no css class here</h1>')
+
+
+def test_get_classes_accepts_string_bytes_and_parsed_tree():
+    html = '<html><body class="body-class"><ul><li class="item active">x</li><li class="item">y</li></ul></body></html>'
+    expected = {'body-class', 'item', 'active'}
+
+    assert get_classes(html) == expected
+    assert get_classes(html.encode('utf-8')) == expected
+    assert get_classes(parse_html(html)) == expected
+
+
+def test_style_similarity_raises_html_parsing_error_on_empty_document():
+    with pytest.raises(HtmlParsingError):
+        style_similarity('', '<html></html>')
+
+
+def test_similarity_combines_structural_and_style_scores():
+    k = 0.3
+    expected = k * structural_similarity(html1, html2) + (1 - k) * style_similarity(html1, html2)
+
+    assert almost_equal(similarity(html1, html2, k=k), expected)
+
+
+def test_similarity_accepts_algorithm():
+    doc1 = '<html><body><div><span>x</span></div><p>y</p></body></html>'
+    doc2 = '<html><body><div><span>x</span><p>y</p></div></body></html>'
+
+    assert similarity(doc1, doc2, algorithm=StructuralAlgorithm.PQ_GRAM) < similarity(doc1, doc2, algorithm='indel')
 
 
 def test_jaccard_similarity():
