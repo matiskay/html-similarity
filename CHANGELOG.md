@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.5.0] - 2026-07-04
+
+### Added
+- `similarity` now accepts an `algorithm` parameter (defaulting to `indel`), passing it through to the structural score for consistency with `structural_similarity`.
+- `get_classes` accepts a string, bytes, or an already-parsed lxml tree.
+- Regression benchmark suite (`tests/test_benchmarks.py`, via `pytest-benchmark`) covering `similarity`, `structural_similarity`, and `style_similarity`; runs as part of the normal CI pytest invocation.
+
+### Changed
+- **Performance:** `get_classes` extracts CSS classes with a linear tree walk instead of the `//*[@class]/@class` XPath query, which degraded superlinearly on large documents (~125× faster at 50k elements, identical output).
+- **Performance:** `similarity` parses each document once and shares the tree between the structural and style scores instead of parsing twice. Combined with the `get_classes` rewrite, `similarity` on a ~20k-element document drops from ~1,020 ms to ~53 ms (~19×), and total time now scales linearly with document size.
+- **Breaking:** `style_similarity` now raises `HtmlParsingError` on unparseable or empty input instead of scoring via parsel's lenient wrapper, consistent with `structural_similarity` since 0.4.0.
+- Parsing empty/whitespace-only input now raises `HtmlParsingError` instead of crashing with `AttributeError` (lxml's recovering parser returns a rootless tree for such input rather than raising).
+- On malformed HTML, class extraction now sees exactly what lxml's parser recovers, which can differ from parsel's recovery in edge cases (e.g. stray text before `<html>`); structural and style scores now always agree on a single parse of the document.
+
+### Removed
+- `parsel` dependency — it existed only for `get_classes`, which now uses lxml directly.
+
 ## [0.4.1] - 2026-06-30
 
 ### Added
@@ -35,5 +52,6 @@ All notable changes to this project are documented in this file.
 - CI migrated from Travis CI to GitHub Actions ([#109](https://github.com/matiskay/html-similarity/pull/109)).
 - Added Dependabot configuration for `uv` and GitHub Actions ([#112](https://github.com/matiskay/html-similarity/pull/112)).
 
+[0.5.0]: https://github.com/matiskay/html-similarity/releases/tag/v0.5.0
 [0.4.1]: https://github.com/matiskay/html-similarity/releases/tag/v0.4.1
 [0.4.0]: https://github.com/matiskay/html-similarity/releases/tag/v0.4.0
